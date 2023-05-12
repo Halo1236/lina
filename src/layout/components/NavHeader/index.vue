@@ -16,9 +16,6 @@
           <SystemSetting />
         </el-tooltip>
       </li>
-      <li v-if="ticketsEnabled" class="header-item header-hover">
-        <Tickets />
-      </li>
       <li class="header-item active-menu">
         <Help />
       </li>
@@ -45,7 +42,6 @@ import AccountDropdown from './AccountDropdown'
 import SiteMessages from './SiteMessages'
 import Help from './Help'
 import WebTerminal from './WebTerminal'
-import Tickets from './Tickets'
 import ViewSwitcher from './ViewSwitcher'
 import Organization from './Organization'
 import SystemSetting from './SystemSetting'
@@ -57,7 +53,6 @@ export default {
     Organization,
     AccountDropdown,
     Help,
-    Tickets,
     WebTerminal,
     SiteMessages,
     SystemSetting
