@@ -39,7 +39,7 @@ export default {
       fields: [
         [this.$t('common.Basic'), ['title', 'type', 'org_id', 'comment']],
         [this.$t('tickets.RequestPerm'), [
-          'apply_nodes', 'apply_assets', 'apply_system_users',
+          'apply_assets', 'apply_system_users',
           'apply_actions', 'apply_date_start', 'apply_date_expired'
         ]]
       ],
@@ -97,8 +97,10 @@ export default {
             ajax: {
               url: '',
               transformOption: (item) => {
-                const username = item.username || '*'
-                return { label: item.name + '(' + username + ')', value: item.id }
+                if (item.type === 'common') {
+                  const username = item.username || '*'
+                  return { label: item.name + '(' + username + ')', value: item.id }
+                }
               }
             }
           }
