@@ -1546,6 +1546,7 @@
     "riskLevels": {
       "common": "普通"
     },
+    "position": "位置",
     "SessionID": "セッションID",
     "TargetResources": "ターゲットリソース",
     "UseProtocol": "使用契約",

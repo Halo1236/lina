@@ -1552,6 +1552,7 @@
     "riskLevels": {
       "common": "common"
     },
+    "position": "Position",
     "SessionID": "Session ID",
     "TargetResources": "Target resources",
     "UseProtocol": "Use protocol",

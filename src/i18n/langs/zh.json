@@ -1519,6 +1519,7 @@
     "riskLevels": {
       "common": "普通"
     },
+    "position": "定位",
     "SessionID": "会话ID",
     "TargetResources": "目标资源",
     "UseProtocol": "使用协议",

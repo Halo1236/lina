@@ -30,6 +30,7 @@ export default {
           routeQuery: null,
           can: true,
           openInNewPage: false,
+          openLink: null,
           getTitle({ col, row, cellValue }) {
             return cellValue
           },
@@ -100,7 +101,15 @@ export default {
   methods: {
     goDetail() {
       if (this.formatterArgs.openInNewPage) {
-        const { href } = this.$router.resolve(this.detailRoute)
+        console.log(this.detailRoute)
+        let { href } = this.$router.resolve(this.detailRoute)
+        if (this.formatterArgs.openLink && typeof this.formatterArgs.openLink === 'function') {
+          href = this.formatterArgs.openLink({
+            row: this.row,
+            col: this.col,
+            cellValue: this.cellValue
+          })
+        }
         window.open(href, '_blank')
       } else {
         this.$router.push(this.detailRoute)
