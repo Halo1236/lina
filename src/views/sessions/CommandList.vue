@@ -49,7 +49,7 @@ export default {
         },
         columns: [
           'expandCol', 'input', 'risk_level', 'user', 'remote_addr',
-          'asset', 'account', 'session', 'timestamp'
+          'asset', 'account', 'session', 'replay', 'timestamp'
         ],
         extraQuery: {
           date_to: dateTo,
@@ -86,7 +86,6 @@ export default {
           session: {
             label: this.$t('sessions.session'),
             formatter: DetailFormatter,
-            width: '80px',
             formatterArgs: {
               openInNewPage: true,
               can: this.$hasPerm('terminal.view_session'),
@@ -98,6 +97,20 @@ export default {
                   name: 'SessionDetail',
                   params: { id: cellValue }
                 }
+              }
+            }
+          },
+          replay: {
+            label: this.$t('sessions.replay'),
+            formatter: DetailFormatter,
+            formatterArgs: {
+              openInNewPage: true,
+              can: this.$hasPerm('terminal.view_session'),
+              getTitle() {
+                return vm.$t('sessions.position')
+              },
+              openLink({ row }) {
+                return '/luna/replay/' + row.session + '?start_at=' + row.timestamp
               }
             }
           },
