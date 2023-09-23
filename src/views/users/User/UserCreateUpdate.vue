@@ -24,7 +24,7 @@ export default {
         [this.$t('users.Account'), ['name', 'username', 'email', 'groups']],
         [this.$t('users.Authentication'), [
           'password_strategy', 'update_password', 'password', 'need_update_password',
-          'set_public_key', 'public_key', 'mfa_level', 'source'
+          'set_public_key', 'public_key', 'mfa_level', 'source', 'usb_key_serial'
         ]],
         [this.$t('users.Secure'), ['system_roles', 'org_roles', 'is_active', 'date_expired']],
         [this.$t('common.Other'), ['phone', 'wechat', 'comment']]
@@ -108,6 +108,12 @@ export default {
           },
           hidden: (formValue) => {
             return !formValue.set_public_key
+          }
+        },
+        usb_key_serial: {
+          type: 'input',
+          el: {
+            type: 'textarea'
           }
         },
         system_roles: {

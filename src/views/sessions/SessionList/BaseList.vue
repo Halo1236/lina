@@ -27,13 +27,12 @@ export default {
       tableConfig: {
         url: this.url,
         columnsExtra: ['index', 'duration'],
-        columnsExclude: ['terminal'],
+        columnsExclude: ['terminal', 'is_locked'],
         columnsShow: {
           min: ['id', 'actions'],
           default: [
             'id', 'user', 'asset', 'account', 'remote_addr', 'protocol', 'login_from',
-            'command_amount', 'date_start', 'duration', 'terminal_display', 'actions',
-            'is_locked'
+            'command_amount', 'date_start', 'duration', 'terminal_display', 'actions'
           ]
         },
         columnsMeta: {
