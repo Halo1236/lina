@@ -42,7 +42,6 @@ export default {
         permissions: ['perms.view_myassets']
       }
     },
-
     {
       path: `external-luna`,
       component: empty,
@@ -251,6 +250,16 @@ export default {
           }
         }
       ]
+    },
+    {
+      path: '/workbench/system-tools',
+      name: 'SystemTools',
+      component: () => import('@/views/settings/Tool'),
+      meta: {
+        title: i18n.t('setting.SystemTools'),
+        icon: 'tools',
+        permissions: ['rbac.view_systemtools']
+      }
     }
   ]
 }
