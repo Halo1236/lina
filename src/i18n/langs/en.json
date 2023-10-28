@@ -331,6 +331,8 @@
     "IsActive": "Is active",
     "Key": "Key",
     "Label": "Label",
+    "CustomLabel": "Custom Label",
+    "UpdateCustomLabel": "Update custom label",
     "LoginModeHelpMessage": "If you choose manual login mode, you do not need to fill in the username and password.",
     "LoginModel": "Login model",
     "Memory": "Memory",

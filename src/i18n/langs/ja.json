@@ -323,6 +323,8 @@
     "IsActive": "アクティブ化",
     "Key": "キー",
     "Label": "ラベル",
+    "CustomLabel": "カスタムラベル",
+    "UpdateCustomLabel": "カスタムラベルの更新",
     "LoginModeHelpMessage": "手動ログインモードを選択した場合、ユーザー名とパスワードは入力しないことができます",
     "LoginModel": "ログインモード",
     "Memory": "メモリ",

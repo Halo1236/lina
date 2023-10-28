@@ -1,20 +1,32 @@
 <template>
   <div>
-    <GenericTreeListPage
-      :header-actions="headerActions"
-      :table-config="tableConfig"
-      :tree-setting="treeSetting"
-    />
+    <el-col :md="24" :sm="24">
+      <GenericTreeListPage
+        ref="GenericTreeListPage"
+        :header-actions="headerActions"
+        :table-config="tableConfig"
+        :tree-setting="treeSetting"
+      />
+      <CustomLabelDialog
+        :cell="cell"
+        :value="value"
+        :assets="assets"
+        :visible.sync="visible"
+        @update="updateSuccess"
+      />
+    </el-col>
   </div>
 </template>
 
 <script>
 import GenericTreeListPage from '@/layout/components/GenericTreeListPage'
 import { AccountShowFormatter, DialogDetailFormatter } from '@/components/Table/TableFormatters'
+import CustomLabelDialog from '@/components/Apps/CustomLabelDialog'
 
 export default {
   components: {
-    GenericTreeListPage
+    GenericTreeListPage,
+    CustomLabelDialog
   },
   data() {
     return {
@@ -42,12 +54,12 @@ export default {
         hasTree: true,
         columnsExclude: ['spec_info'],
         columnsShow: {
-          default: ['name', 'address', 'platform', 'accounts', 'connectivity', 'is_active', 'actions'],
+          default: ['name', 'address', 'platform', 'accounts', 'custom_labels', 'connectivity', 'is_active', 'actions'],
           min: ['name', 'address', 'actions']
         },
         columns: [
           'name', 'address', 'domain', 'platform', 'connectivity', 'is_active',
-          'nodes', 'org_name', 'created_by', 'labels', 'accounts', 'comment', 'actions'
+          'nodes', 'org_name', 'created_by', 'labels', 'custom_labels', 'accounts', 'comment', 'actions'
         ],
         columnsMeta: {
           name: {
@@ -110,6 +122,11 @@ export default {
               }
             }
           },
+          custom_labels: {
+            label: this.$t('assets.CustomLabel'),
+            name: 'custom_labels',
+            width: '100px'
+          },
           platform: {
             width: '120px'
           },
@@ -141,6 +158,24 @@ export default {
                     return this.checkFavorite(row.id) ? 'fa-star' : 'fa-star-o'
                   },
                   callback: ({ row }) => this.toggleFavorite(row.id)
+                },
+                {
+                  name: 'Update',
+                  fa: 'fa-edit',
+                  type: 'primary',
+                  // can: this.$hasPerm('assets.updateCustomLabel') && !this.$store.getters.currentOrgIsRoot,
+                  callback: function({ row }) {
+                    this.cell = ''
+                    this.value = ''
+                    this.visible = true
+                    this.assets = [row.id]
+                    const custom_labels = row.custom_labels
+                    if (custom_labels.length !== 0) {
+                      const custom_label = custom_labels[0]
+                      this.value = custom_label.value
+                      this.cell = custom_label.id
+                    }
+                  }.bind(this)
                 }
               ]
             }
@@ -157,9 +192,19 @@ export default {
         hasImport: false,
         hasLeftActions: false,
         hasSearch: true
-      }
+      },
+      cell: '',
+      value: '',
+      assets: [],
+      visible: false
     }
   },
+  computed: {
+    treeTable() {
+      return this.$refs.GenericTreeListPage.$refs.TreeTable
+    }
+  },
+  watch: {},
   mounted() {
     this.refreshAllFavorites()
   },
@@ -203,6 +248,9 @@ export default {
         }
       })
       return ok
+    },
+    updateSuccess() {
+      this.treeTable.forceRerender()
     }
   }
 }

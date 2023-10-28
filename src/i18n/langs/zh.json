@@ -334,6 +334,8 @@
     "IsActive": "激活",
     "Key": "键",
     "Label": "标签",
+    "CustomLabel": "自定义标签",
+    "UpdateCustomLabel": "更新自定义标签",
     "LoginModeHelpMessage": "如果选择手动登录模式，用户名和密码可以不填写",
     "LoginModel": "登录模式",
     "Memory": "内存",
