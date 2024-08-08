@@ -21,6 +21,9 @@ export default {
             this.$t('common.Basic'),
             [
               'SECURITY_WATERMARK_ENABLED',
+              'SECURITY_WATERMARK_DATE',
+              'SECURITY_WATERMARK_ALPHA',
+              'SECURITY_WATERMARK_CONTENT',
               'SECURITY_SESSION_SHARE',
               'SESSION_EXPIRE_AT_BROWSER_CLOSE',
               'SECURITY_MAX_IDLE_TIME',
