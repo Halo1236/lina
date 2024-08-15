@@ -61,15 +61,17 @@ function ifUnauthorized({ response, error }) {
       window.location = '/core/auth/login/'
       return
     }
-    const title = i18n.t('common.Info')
-    const msg = i18n.t('auth.LoginRequiredMsg')
-    MessageBox.confirm(msg, title, {
-      confirmButtonText: i18n.t('auth.ReLogin'),
-      cancelButtonText: i18n.t('common.Cancel'),
-      type: 'warning'
-    }).then(() => {
-      window.location = '/core/auth/login/'
-    })
+    window.location = '/core/auth/login/'
+
+    // const title = i18n.t('common.Info')
+    // const msg = i18n.t('auth.LoginRequiredMsg')
+    // MessageBox.confirm(msg, title, {
+    //   confirmButtonText: i18n.t('auth.ReLogin'),
+    //   cancelButtonText: i18n.t('common.Cancel'),
+    //   type: 'warning'
+    // }).then(() => {
+    //   window.location = '/core/auth/login/'
+    // })
   }
 }
 
