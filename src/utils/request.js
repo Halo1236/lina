@@ -61,7 +61,7 @@ function ifUnauthorized({ response, error }) {
       window.location = '/core/auth/login/'
       return
     }
-    window.location = '/core/auth/login/'
+    window.location = 'https://www.newtrials.cn/#/login'
 
     // const title = i18n.t('common.Info')
     // const msg = i18n.t('auth.LoginRequiredMsg')
