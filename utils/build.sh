@@ -4,6 +4,7 @@
 utils_dir=$(pwd)
 project_dir=$(dirname "$utils_dir")
 release_dir=${project_dir}/release
+VERSION=v3.10.12
 
 if [[ $(uname) == 'Darwin' ]]; then
   alias sedi="sed -i ''"
@@ -12,7 +13,7 @@ else
 fi
 
 function change_version() {
-  sedi "s@version-dev@${VERSION}@g" "${project_dir}/src/layout/components/NavHeader/About.vue" || return 2
+  sed -i '' "s@version-dev@${VERSION}@g" "${project_dir}/src/layout/components/NavHeader/About.vue" || return 2
 }
 
 function install_deps() {
