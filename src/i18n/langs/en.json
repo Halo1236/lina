@@ -2110,6 +2110,7 @@
       "unblock": "Unblock",
       "unblockSuccessMsg": "Account has unblocked",
       "unblockUser": "Unblock login",
+      "updateUkey": "Update USB Key",
       "resetDingTalkLoginSuccessMsg": "The reset is successful, and the user can re-bind DingTalk",
       "resetDingTalkLoginWarningMsg": "Are you sure you want to unbind the user's DingTalk?",
       "resetDingTalk": "Untie DingTalk"

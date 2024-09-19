@@ -166,6 +166,20 @@ export default {
               })
             }
           }
+        },
+        {
+          title: this.$t('users.quickUpdate.updateUkey'),
+          attrs: {
+            type: 'primary',
+            disabled: !vm.$hasPerm('users.change_user'),
+            label: this.$t('common.Update')
+          },
+          has: this.$store.getters.publicSettings.XPACK_LICENSE_IS_VALID,
+          callbacks: {
+            click: function() {
+              window.open(`/core/auth/ukey/${vm.object.id}/bind/`, '_blank')
+            }
+          }
         }
       ],
       url: `/api/v1/users/users/${this.object.id}`,

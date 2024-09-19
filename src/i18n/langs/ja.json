@@ -2102,7 +2102,8 @@
       "unbind": "バインド解除",
       "unblock": "ロック解除",
       "unblockSuccessMsg": "解錠に成功した",
-      "unblockUser": "ユーザーのロックを解除"
+      "unblockUser": "ユーザーのロックを解除",
+      "updateUkey": "USBキーを更新する"
     },
     "removeFromOrgWarningMsg": "組織から削除しました",
     "tabs": {

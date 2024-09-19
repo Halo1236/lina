@@ -2093,7 +2093,8 @@
       "unbind": "解綁",
       "unblock": "解鎖",
       "unblockSuccessMsg": "解鎖成功",
-      "unblockUser": "解鎖用戶"
+      "unblockUser": "解锁用户",
+      "updateUkey": "更新USBKey"
     },
     "removeFromOrgWarningMsg": "你確定從組織移除 ",
     "tabs": {

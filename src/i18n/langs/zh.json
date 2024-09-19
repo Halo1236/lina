@@ -2094,7 +2094,8 @@
       "unbind": "解绑",
       "unblock": "解锁",
       "unblockSuccessMsg": "解锁成功",
-      "unblockUser": "解锁用户"
+      "unblockUser": "解锁用户",
+      "updateUkey": "更新USBKey"
     },
     "removeFromOrgWarningMsg": "你确定从组织移除 ",
     "tabs": {
