@@ -39,20 +39,26 @@ function beforeRequestAddTimezone(config) {
 }
 
 // request interceptor
-service.interceptors.request.use(
-  config => {
-    // do something before request is sent
-    // NProgress.start()
-    beforeRequestAddToken(config)
-    beforeRequestAddTimezone(config)
-    return config
-  },
-  error => {
-    // do something with request error
-    // debug(error) // for debug
-    return Promise.reject(error)
+service.interceptors.request.use(async(config) => {
+  beforeRequestAddToken(config)
+  beforeRequestAddTimezone(config)
+  try {
+    const response = await axios({
+      url: 'http://127.0.0.1:51235/alpha',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': '*/*' },
+      data: { 'function': 'SOF_EnumDevice' },
+      method: 'post'
+    })
+    const errorCode = response.data['errorCode']
+    if (errorCode !== 0) {
+      window.location.href = process.env.VUE_APP_LOGOUT_PATH
+    }
+  } catch (error) {
+    window.location.href = process.env.VUE_APP_LOGOUT_PATH
   }
-)
+}, error => {
+  return Promise.reject(error)
+})
 
 function ifUnauthorized({ response, error }) {
   if (response.status === 401) {
