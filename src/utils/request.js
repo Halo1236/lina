@@ -43,16 +43,21 @@ service.interceptors.request.use(async(config) => {
   beforeRequestAddToken(config)
   beforeRequestAddTimezone(config)
   try {
-    const response = await axios({
-      url: 'http://127.0.0.1:51235/alpha',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': '*/*' },
-      data: { 'function': 'SOF_EnumDevice' },
-      method: 'post'
-    })
-    const errorCode = response.data['errorCode']
-    if (errorCode !== 0) {
+    const json = '{"function":"SOF_EnumDevice"}'
+    const _xmlhttp = new XMLHttpRequest()
+    _xmlhttp.open('POST', 'http://127.0.0.1:51235/alpha', false)
+    _xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    _xmlhttp.send('json=' + json)
+    if (_xmlhttp.readyState === 4 && _xmlhttp.status === 200) {
+      // eslint-disable-next-line no-eval
+      const obj = eval('(' + _xmlhttp.responseText + ')')
+      if (obj['errorCode'] !== 0) {
+        window.location.href = process.env.VUE_APP_LOGOUT_PATH
+      }
+    } else {
       window.location.href = process.env.VUE_APP_LOGOUT_PATH
     }
+    return config
   } catch (error) {
     window.location.href = process.env.VUE_APP_LOGOUT_PATH
   }
