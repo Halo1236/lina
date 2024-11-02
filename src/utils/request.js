@@ -39,31 +39,20 @@ function beforeRequestAddTimezone(config) {
 }
 
 // request interceptor
-service.interceptors.request.use(async(config) => {
-  beforeRequestAddToken(config)
-  beforeRequestAddTimezone(config)
-  try {
-    const json = '{"function":"SOF_EnumDevice"}'
-    const _xmlhttp = new XMLHttpRequest()
-    _xmlhttp.open('POST', 'http://127.0.0.1:51235/alpha', false)
-    _xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-    _xmlhttp.send('json=' + json)
-    if (_xmlhttp.readyState === 4 && _xmlhttp.status === 200) {
-      // eslint-disable-next-line no-eval
-      const obj = eval('(' + _xmlhttp.responseText + ')')
-      if (obj['errorCode'] !== 0) {
-        window.location.href = process.env.VUE_APP_LOGOUT_PATH
-      }
-    } else {
-      window.location.href = process.env.VUE_APP_LOGOUT_PATH
-    }
+service.interceptors.request.use(
+  config => {
+    // do something before request is sent
+    // NProgress.start()
+    beforeRequestAddToken(config)
+    beforeRequestAddTimezone(config)
     return config
-  } catch (error) {
-    window.location.href = process.env.VUE_APP_LOGOUT_PATH
+  },
+  error => {
+    // do something with request error
+    // debug(error) // for debug
+    return Promise.reject(error)
   }
-}, error => {
-  return Promise.reject(error)
-})
+)
 
 function ifUnauthorized({ response, error }) {
   if (response.status === 401) {
