@@ -62,7 +62,6 @@ export default {
           break
         case 'logout':
           this.logout()
-          window.location.href = `${process.env.VUE_APP_LOGOUT_PATH}?next=${this.$route.fullPath}`
           break
         case 'apiKey':
           this.$router.push('/profile/api-keys')
@@ -74,11 +73,12 @@ export default {
           this.$router.push('/profile/user/setting')
       }
     },
-    logout() {
-      const currentOrg = this.store.getters.currentOrg
-      if (currentOrg === SYSTEM_ORG_ID) {
-        this.$store.dispatch('users/leaveSettingOrg')
+    async logout() {
+      const currentOrg = this.$store.getters.currentOrg
+      if (currentOrg.autoEnter) {
+        await this.$store.dispatch('users/setCurrentOrg', this.$store.getters.preOrg)
       }
+      window.location.href = `${process.env.VUE_APP_LOGOUT_PATH}?next=${this.$route.fullPath}`
     }
   }
 }
