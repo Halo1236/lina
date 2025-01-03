@@ -8,7 +8,10 @@ import orgs from '@/api/orgs'
 import { getPropView, isViewHasOrgs } from '@/utils/jms'
 
 const whiteList = ['/login', process.env.VUE_APP_LOGIN_PATH] // no redirect whitelist
-const autoEnterOrgs = ['00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000000']
+const autoEnterOrgs = [
+  '00000000-0000-0000-0000-000000000001',
+  '00000000-0000-0000-0000-000000000000'
+]
 
 function reject(msg) {
   return new Promise((resolve, reject) => reject(msg))
@@ -23,6 +26,19 @@ async function checkLogin({ to, from, next }) {
     return await store.dispatch('users/getProfile')
   } catch (e) {
     Vue.$log.error(e)
+    // remove currentOrg: System org item
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
+      if (!key.startsWith('jms_current_org_')) {
+        continue
+      }
+      let value = localStorage.getItem(key)
+      value = JSON.parse(value)
+      if (!value.is_system) {
+        continue
+      }
+      localStorage.removeItem(key)
+    }
     const status = e.response.status
     if (store.getters.currentOrg.autoEnter) {
       await store.dispatch('users/setCurrentOrg', store.getters.preOrg)
@@ -154,18 +170,24 @@ export async function startup({ to, from, next }) {
   if (store.getters.inited) {
     return true
   }
-  await store.dispatch('app/init')
 
-  // set page title
-  // await getOpenPublicSetting({ to, from, next })
-  await getPublicSetting({ to, from, next }, true)
-  await checkLogin({ to, from, next })
-  await getPublicSetting({ to, from, next }, false)
-  await changeCurrentViewIfNeed({ to, from, next })
-  await changeCurrentOrgIfNeed({ to, from, next })
-  await generatePageRoutes({ to, from, next })
-  await checkUserFirstLogin({ to, from, next })
-  await store.dispatch('assets/getAssetCategories')
+  try {
+    await store.dispatch('app/init')
+
+    // set page title
+    // await getOpenPublicSetting({ to, from, next })
+    await getPublicSetting({ to, from, next }, true)
+    await checkLogin({ to, from, next })
+    await getPublicSetting({ to, from, next }, false)
+    await changeCurrentViewIfNeed({ to, from, next })
+    await changeCurrentOrgIfNeed({ to, from, next })
+    await generatePageRoutes({ to, from, next })
+    await checkUserFirstLogin({ to, from, next })
+    await store.dispatch('assets/getAssetCategories')
+  } catch (e) {
+    Vue.$log.error('Startup error: ', e)
+  }
+
   return true
 }
 
